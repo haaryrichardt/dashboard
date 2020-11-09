@@ -1,0 +1,133 @@
+{
+  "displayName": "GKE Monitoring",
+  "etag": "99b1787d3bf35d62bea86e6890ac0a61",
+  "gridLayout": {
+    "columns": "2",
+    "widgets": [
+      {
+        "title": "Container Run Status",
+        "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
+          "dataSets": [
+            {
+              "minAlignmentPeriod": "60s",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "aggregation": {
+                    "perSeriesAligner": "ALIGN_MEAN"
+                  },
+                  "filter": "metric.type=\"kubernetes.io/container/uptime\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"default\" resource.label.\"cluster_name\"=\"optima-cluster\"",
+                  "secondaryAggregation": {}
+                }
+              }
+            }
+          ],
+          "timeshiftDuration": "0s",
+          "yAxis": {
+            "label": "y1Axis",
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "Container Restart Status",
+        "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
+          "dataSets": [
+            {
+              "minAlignmentPeriod": "60s",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "aggregation": {
+                    "crossSeriesReducer": "REDUCE_MIN",
+                    "groupByFields": [
+                      "resource.label.\"container_name\""
+                    ],
+                    "perSeriesAligner": "ALIGN_RATE"
+                  },
+                  "filter": "metric.type=\"kubernetes.io/container/restart_count\" resource.type=\"k8s_container\" resource.label.\"namespace_name\"=\"default\"",
+                  "secondaryAggregation": {}
+                },
+                "unitOverride": "1"
+              }
+            }
+          ],
+          "timeshiftDuration": "0s",
+          "yAxis": {
+            "label": "y1Axis",
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "Location wise Latency",
+        "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
+          "dataSets": [
+            {
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "aggregation": {
+                    "crossSeriesReducer": "REDUCE_MEAN",
+                    "groupByFields": [
+                      "metric.labels.checker_location",
+                      "resource.instance_id"
+                    ],
+                    "perSeriesAligner": "ALIGN_MEAN"
+                  },
+                  "filter": "metric.type=\"monitoring.googleapis.com/uptime_check/request_latency\" metric.labels.check_id=\"optima\""
+                }
+              }
+            }
+          ],
+          "xAxis": {
+            "scale": "LINEAR"
+          }
+        }
+      },
+      {
+        "title": "Uptime check Location wise",
+        "xyChart": {
+          "chartOptions": {
+            "mode": "COLOR"
+          },
+          "dataSets": [
+            {
+              "minAlignmentPeriod": "60s",
+              "plotType": "LINE",
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "aggregation": {
+                    "crossSeriesReducer": "REDUCE_COUNT_TRUE",
+                    "groupByFields": [
+                      "metric.label.\"checker_location\"",
+                      "resource.label.\"instance_id\""
+                    ],
+                    "perSeriesAligner": "ALIGN_NEXT_OLDER"
+                  },
+                  "filter": "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" metric.label.\"check_id\"=\"optima\"",
+                  "secondaryAggregation": {}
+                }
+              }
+            }
+          ],
+          "timeshiftDuration": "0s",
+          "yAxis": {
+            "label": "y1Axis",
+            "scale": "LINEAR"
+          }
+        }
+      }
+    ]
+  },
+  "name": "projects/182646376318/dashboards/11914825910528831824"
+}
