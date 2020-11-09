@@ -1,6 +1,5 @@
 {
   "displayName": "GKE Monitoring",
-  "etag": "99b1787d3bf35d62bea86e6890ac0a61",
   "gridLayout": {
     "columns": "2",
     "widgets": [
@@ -129,5 +128,4 @@
       }
     ]
   },
-  "name": "projects/182646376318/dashboards/11914825910528831824"
 }
